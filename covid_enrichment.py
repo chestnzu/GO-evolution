@@ -97,7 +97,4 @@ def main(data_path=data_path,time1=time1,time2=time2,visualization=visualization
 
 
 if __name__=='__main__':
-    print(visualization)
-    print(time1)
-    print(time2)
     main(data_path=data_path,time1=time1,time2=time2,visualization=visualization)
