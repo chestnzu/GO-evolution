@@ -21,6 +21,9 @@ visualization=args.visualize
 groups={}
 
 def main(data_path=data_path,time1=time1,time2=time2,visualization=visualization):
+    paths=glob.glob('/app/'+data_path+'*')
+    if len(paths)==0:
+        raise ValueError('invalid path, the current data_path is {}'.format(data_path))
     for path in glob.glob(data_path+'*'): ## retrieve all groups 
         group_number=path.split('group')[1]
         groupname='group'+str(group_number)

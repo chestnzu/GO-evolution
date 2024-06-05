@@ -26,4 +26,6 @@ To ensure all necessary packages have been installed, run `pip install -r requir
 ## running basic functions
 
 ## working on
-- mount input data set into docker
+'docker run --rm -v $(pwd)/:/app/ -v $(pwd)/output:/app/output test-image 2017-12-15 2021-12-15 <your data location>'
+
+For exmaple, if you want to try the test input list, which stored at ./example_data/testfolder/, then the your data location=./example_data/testfolder/
