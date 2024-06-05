@@ -7,9 +7,7 @@ RUN apt-get update && apt-get install -y python3-pip && \
 pip install --upgrade pip && \
 pip3 install -r requirements.txt && mkdir -p /app/output && \
     mkdir -p /app/example_data && \
-    mv /app/covidGroups /app/example_data/covidGroups && \
-    mv /app/data /app/output/data && \
-    mv /app/figure /app/output/figure
+    mv /app/covidGroups /app/example_data/covidGroups 
 
 # Volumes are only available for a container, not while building an image.
 # Therefore when mounting, use /app/output, instead of /output

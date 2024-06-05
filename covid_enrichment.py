@@ -1,5 +1,5 @@
 from itertools import permutations
-import glob,argparse
+import glob,argparse,os
 from basic_modules import *
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -24,6 +24,10 @@ def main(data_path=data_path,time1=time1,time2=time2,visualization=visualization
     paths=glob.glob('/app/'+data_path+'*')
     if len(paths)==0:
         raise ValueError('invalid path, the current data_path is {}'.format(data_path))
+    save_path='./output/'+time1.replace('-','')+'_'+time2.replace('-','')
+    if os.path.exists(save_path):
+        save_path=save_path+'_'+str(len(glob.glob(save_path+'*'))+1)
+    os.mkdir(save_path)
     for path in glob.glob(data_path+'*'): ## retrieve all groups 
         group_number=path.split('group')[1]
         groupname='group'+str(group_number)
@@ -39,12 +43,9 @@ def main(data_path=data_path,time1=time1,time2=time2,visualization=visualization
 
     records=pd.DataFrame(columns=['group','Jac_index'])
     n=0
-
     for x,y in groups.items():
         result1=f1.enrichment(y).sort_values(by='scores_adj').head(20)
         result2=f2.enrichment(y).sort_values(by='scores_adj').head(20)
-        result1.to_csv('./output/data/{0}_{1}.csv'.format(time1.split('-')[0]+time1.split('-')[1],x))
-        result2.to_csv('./output/data/{0}_{1}.csv'.format(time2.split('-')[0]+time2.split('-')[1],x))
         head1=result1.GOterms.to_list()
         head2=result2.GOterms.to_list()
         share=set(head1)&set(head2)
@@ -53,6 +54,8 @@ def main(data_path=data_path,time1=time1,time2=time2,visualization=visualization
         total=share|h1_only|h2_only
         records.loc[n]=[x,len(share)/len(total)]
         n+=1
+        result1.to_csv(save_path+'/{0}_{1}.csv'.format(time1.split('-')[0]+time1.split('-')[1],x))
+        result2.to_csv(save_path+'/{0}_{1}.csv'.format(time2.split('-')[0]+time2.split('-')[1],x))        
         if visualization:
             if len(share)<20:
                 pairs1=permutations(head1,2)
@@ -88,7 +91,7 @@ def main(data_path=data_path,time1=time1,time2=time2,visualization=visualization
                 nx.draw_networkx_nodes(G,node_color=color,pos=pos)
                 nx.draw_networkx_edges(G,edge_color='grey',pos=pos)
                 nx.draw_networkx_labels(G,font_size=6,pos=pos)
-                plt.savefig("./output/figure/Group{0}{1}&{2}.png".format(x,time1,time2), format="PNG")
+                plt.savefig(save_path+"/Group{0}{1}&{2}.png".format(x,time1,time2), format="PNG")
                 plt.close()
         else:
             continue
