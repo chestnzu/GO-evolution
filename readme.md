@@ -4,7 +4,7 @@ This repository contains the code, data, and supplementary materials for the pap
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [Running docker](#running docker)
+- [Running docker](#Running docker)
 - [running basic functions](#running basic functions)
 
 
