@@ -4,7 +4,7 @@ This repository contains the code, data, and supplementary materials for the pap
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [Running docker](#Running docker)
+- [Running docker](#Runningdocker)
 - [running basic functions](#running basic functions)
 
 
@@ -16,14 +16,14 @@ This project has the following aims:
 - Gene Ontology enrichment analysis 
 - analyze the influence of GO evolution on GO enrichment analysis and visualize the differences. 
 
-## Running docker 
+## Runningdocker 
 - clone this repo to your local
 - `docker run -it --entrypoint /bin/bash GOimages`
 - `docker run --rm --name gocomparison -v $(pwd)/output:/app/output GOimages <time1> <time2> /app/example_data/covidGroups/`
 
 To ensure all necessary packages have been installed, run `pip install -r requirements.txt`
 
-## running basic functions
+## runningbasicfunctions
 
 ## GO enrichment analysis using different version of GO 
 'docker run --rm -v $(pwd)/:/app/ -v $(pwd)/output:/app/output <image name> time1 time2 <your data location>'
